@@ -1,3 +1,5 @@
+CREATE DATABASE library
+
 GO
 
 USE Library;
@@ -9,7 +11,8 @@ CREATE TABLE book
 (id INT PRIMARY KEY IDENTITY,
 book_name NVARCHAR(55) NOT NULL,
 book_year DATE CHECK (YEAR(book_year) >= 1960),
-amount INT CHECK (amount >= 0) NOT NULL
+total_books INT CHECK (total_books >= 0) NOT NULL,
+books_now INT CHECK (books_now >= 0)
 );
 
 CREATE TABLE author
@@ -43,18 +46,19 @@ book_id INT,
 date_of_issue DATE,
 return_date DATE,
 FOREIGN KEY (reader_id)  REFERENCES reader (Id),
-FOREIGN KEY (book_id)  REFERENCES book (Id)
+FOREIGN KEY (book_id)  REFERENCES book (Id),
+CONSTRAINT r_b UNIQUE (reader_id, book_id)
 );
 
-INSERT INTO book(book_name) VALUES ('Муму');
-INSERT INTO book(book_name) VALUES ('Живой труп');
-INSERT INTO book(book_name) VALUES ('Война и мир');
-INSERT INTO book(book_name) VALUES ('Дама с собачкой');
-INSERT INTO book(book_name) VALUES ('Винт');
-INSERT INTO book(book_name) VALUES ('Беглец');
-INSERT INTO book(book_name) VALUES ('Дневной дозор');
-INSERT INTO book(book_name) VALUES ('Клинки');
-INSERT INTO book(book_name) VALUES ('Воспоминания сладострастника');
+INSERT INTO book(book_name, book_year, total_books) VALUES ('Муму', '1976-02-11', 34);
+INSERT INTO book(book_name, book_year, total_books) VALUES ('Живой труп', '1980-02-11', 18);
+INSERT INTO book(book_name, book_year, total_books) VALUES ('Война и мир', '1996-02-11', 21);
+INSERT INTO book(book_name, book_year, total_books) VALUES ('Дама с собачкой', '1972-02-11', 28);
+INSERT INTO book(book_name, book_year, total_books) VALUES ('Винт', '1968-02-11', 19);
+INSERT INTO book(book_name, book_year, total_books) VALUES ('Беглец', '2003-02-11', 25);
+INSERT INTO book(book_name, book_year, total_books) VALUES ('Дневной дозор', '1998-02-11', 31);
+INSERT INTO book(book_name, book_year, total_books) VALUES ('Клинки', '2008-02-11', 16);
+INSERT INTO book(book_name, book_year, total_books) VALUES ('Воспоминания сладострастника', '1993-02-11', 29);
 
 INSERT INTO author(surname, first_name) VALUES ('Толстой', 'Лев');
 INSERT INTO author(surname, first_name) VALUES ('Чехов', 'Антон');
